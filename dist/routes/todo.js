@@ -15,7 +15,8 @@ router.post('/todo', (req, res, next) => {
     res.status(201).json({ msg: 'successfully added todo' });
 });
 router.post('/todo/delete', (req, res, next) => {
-    const id = req.body.id;
+    const body = req.body;
+    const id = body.id;
     console.log(id);
     for (let i in todos) {
         if (todos[i].id === id) {
@@ -32,8 +33,9 @@ router.post('/todo/delete', (req, res, next) => {
     res.status(404).json({ msg: "item not found" });
 });
 router.post('/todo/edit', (req, res, next) => {
-    const id = req.body.id;
-    const newText = req.body.text;
+    const body = req.body;
+    const id = body.id;
+    const newText = body.text;
     for (let i of todos) {
         if (i.id === id) {
             i.text = newText;

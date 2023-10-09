@@ -6,6 +6,13 @@ const router = Router();
 
 let todos: Array<Todo>=[];
 
+type reqDelete = {id:string};
+
+type reqEdit = {
+    id: string,
+    text:string
+}
+
 router.get('/',(req,res,next)=>{
     res.status(200).json({todos:todos});
 })
@@ -21,7 +28,8 @@ router.post('/todo',(req,res,next)=>{
 )
 
 router.post('/todo/delete',(req,res,next)=>{
-    const id = req.body.id
+    const body = req.body as reqDelete;
+    const id = body.id
     console.log(id)
     for(let i in todos){
         if (todos[i].id===id){
@@ -39,8 +47,9 @@ router.post('/todo/delete',(req,res,next)=>{
 })
 
 router.post('/todo/edit',(req,res,next)=>{
-    const id = req.body.id
-    const newText = req.body.text
+    const body= req.body as reqEdit;
+    const id = body.id;
+    const newText = body.text;
     for(let i of todos){
         if(i.id===id){
             i.text=newText;
